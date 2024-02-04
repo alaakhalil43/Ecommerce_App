@@ -1,10 +1,23 @@
 package com.example.Ecommerce_project.Controller;
 
 
+import com.example.Ecommerce_project.Models.Products;
+import com.example.Ecommerce_project.Services.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 @org.springframework.stereotype.Controller
 public class AdminController {
+
+    @Autowired
+    ProductService productService;
+
+    public AdminController(ProductService productService) {
+        this.productService = productService;
+    }
 
     //http://localhost:8092/admin
     @GetMapping("/admin")
@@ -23,6 +36,14 @@ public class AdminController {
         return "ManageCategories";
     }
 
+
+    @GetMapping("/saveProducts")
+    public String saveProduct(@ModelAttribute("Products")Products products, ModelMap modelMap){
+        String msg = "Products saved with Id: " + products.getId();
+        modelMap.addAttribute("msg",msg);
+        productService.saveProduct(products);
+        return "AddProducts";
+    }
 
 
 
