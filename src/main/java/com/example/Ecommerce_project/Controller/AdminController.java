@@ -4,10 +4,11 @@ package com.example.Ecommerce_project.Controller;
 import com.example.Ecommerce_project.Models.Products;
 import com.example.Ecommerce_project.Services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @org.springframework.stereotype.Controller
 public class AdminController {
@@ -25,11 +26,14 @@ public class AdminController {
         return "AdminPage";
     }
 
+
     //http://localhost:8092/addproduct
     @GetMapping("/addproduct")
     public String addProducts(){
         return "AddProducts";
     }
+
+
 
     @GetMapping("/manageCategories")
     public String manageCategories(){
@@ -37,13 +41,14 @@ public class AdminController {
     }
 
 
-    @GetMapping("/saveProducts")
+    @PostMapping("/saveProducts")
     public String saveProduct(@ModelAttribute("Products")Products products, ModelMap modelMap){
-        String msg = "Products saved with Id: " + products.getId();
-        modelMap.addAttribute("msg",msg);
         productService.saveProduct(products);
         return "AddProducts";
     }
+
+
+
 
 
 
