@@ -20,6 +20,8 @@ public class AdminController {
         this.productService = productService;
     }
 
+
+    // new repo success
     //http://localhost:8092/admin
     @GetMapping("/admin")
     public String showAdminPage(){
