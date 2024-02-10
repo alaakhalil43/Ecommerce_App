@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table>
+
+    <!--    static -->
+    <thead>
+    <tr>
+        <th> Id</th>
+        <th> Name</th>
+        <th> price</th>
+        <th> descripe</th>
+        <th> image</th>
+        <th> Categ</th>
+
+
+
+    </tr>
+    </thead>
+
+    <!--    dynamic-->
+    <tbody>
+    <tr th:each="i : ${prods}">
+        <td th:text="${i.id}"></td>
+        <td th:text="${i.name}"></td>
+        <td th:text="${i.price}"></td>
+        <td th:text=${i.productDescription}></td>
+        <td th:text="${i.imageData}"></td>
+        <td th:text="${i.categories}"></td>
+<!--        <td><a th:href="@{'/delete?id=' + ${i.id}}"> delete </a></td>-->
+<!--        <td><a th:href="@{'/edit?id=' + ${i.id}}"> edit </a></td>-->
+
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
