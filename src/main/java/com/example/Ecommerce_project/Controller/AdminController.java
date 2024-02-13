@@ -11,6 +11,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -42,12 +43,6 @@ public class AdminController {
     }
 
 
-//  @PostMapping("/saveCategories")
-//  public String saveCategories(@ModelAttribute("Categories")Categories categories) {
-//
-//  }
-
-
     //http://localhost:8092/manageCategories
 @GetMapping("/manageCategories")
 public String showCategories(ModelMap modelMap){
@@ -70,6 +65,27 @@ public String saveCategory(@ModelAttribute("categories")Categories categories,Mo
     modelMap.addAttribute("categories",cate);
         return "CategoriesPage";
 }
+
+
+@GetMapping("/deleteCategory")
+public String deleteCategory(@RequestParam("id") int id , ModelMap modelMap){
+        Categories categories=categoryService.getById(id);
+         categoryService.deleteCategory(categories);
+         List<Categories>cate=categoryService.getAllCategories();
+         modelMap.addAttribute("categories",cate);
+         return "CategoriesPage";
+}
+
+
+
+
+
+
+
+
+
+
+
 
 
 

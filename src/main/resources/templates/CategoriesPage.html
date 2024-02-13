@@ -166,8 +166,16 @@ tr:hover {
             <td th:text="${category.id}"></td>
             <td th:text="${category.name}"></td>
             <td class="button-container">
-                <button type="submit">Delete</button>
+                <button type="submit" onclick="redirectToAnotherPage4(${category.id})">Delete</button>
             </td>
+            <script>
+            function redirectToAnotherPage4(ide) {
+            // Change the URL to the desired page
+            window.location.href = `/deleteCategory?id='${ide};
+            }
+            </script>
+            </td>
+
             <td class="button-container">
                 <button type="submit">Update</button>
             </td>
