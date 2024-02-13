@@ -30,6 +30,7 @@ public class Products {
     private String imageData;
 
 
-    @Column(name = "categories")
-    private String categories;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id") // This is the foreign key column in the products table
+    private Categories category;
 }

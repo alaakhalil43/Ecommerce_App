@@ -23,22 +23,6 @@ public class RestController {
         this.productService = productService;
     }
 
-    //http://localhost:8092/admin
-//    @GetMapping("/admin")
-//    public String showAdminPage(){
-//        return "AdminPage";
-//    }
-
-    //http://localhost:8092/addproduct
-//    @GetMapping("/addproduct")
-//    public String addProducts(){
-//        return "AddProducts";
-//    }
-
-//    @GetMapping("/manageCategories")
-//    public String manageCategories(){
-//        return "ManageCategories";
-//    }
 
     //http://localhost:8092/saveProducts
     @PostMapping("/saveProducts")
@@ -48,8 +32,6 @@ public class RestController {
         modelMap.addAttribute("msg", msg);
         productService.saveProduct(products);
     }
-
-
 
 
     //http://localhost:8092/rest/getAll
