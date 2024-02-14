@@ -6,6 +6,7 @@ import com.example.Ecommerce_project.Models.Categories;
 import com.example.Ecommerce_project.Models.Products;
 import com.example.Ecommerce_project.Services.CategoryService;
 import com.example.Ecommerce_project.Services.ProductService;
+import com.example.Ecommerce_project.dto.ProductDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -77,26 +78,27 @@ public String deleteCategory(@RequestParam("id") int id , ModelMap modelMap){
 }
 
 
+@GetMapping("/mangeProducts")
+public String mangeProducts(ModelMap modelMap,ModelMap modelMap2){
+        List<ProductDto>productsList=productService.getAllProducts();
+        modelMap.addAttribute("productsList",productsList);
+        return "productspage";
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-    @PostMapping("/saveProducts")
-    public String saveProduct(@ModelAttribute("Products")Products products){
-        productService.saveProduct(products);
+    @GetMapping ("/addProduct")
+    public String addProduct(){
         return "AddProducts";
     }
 
 
+
+    @PostMapping("/saveProducts")
+    public String saveProduct(@ModelAttribute("Products")Products products,ModelMap modelMap){
+        productService.saveProduct(products);
+        List<ProductDto>productsList=productService.getAllProducts();
+        modelMap.addAttribute("productsList",productsList);
+        return "productspage";
+    }
 
 
 

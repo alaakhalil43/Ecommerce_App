@@ -1,42 +1,201 @@
 <!DOCTYPE html>
-<html lang="en">
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+        text-decoration: none;
+        list-style: none;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'montserrat', sans-serif;
+    }
+
+    nav {
+        background: #0082e6;
+        height: 80px;
+        width: 100%;
+    }
+
+    label.logo {
+        color: white;
+        font-size: 35px;
+        line-height: 80px;
+        padding: 0 100px;
+        font-weight: bold;
+    }
+
+    nav ul {
+        float: right;
+        margin-right: 20px;
+    }
+
+    nav ul li {
+        display: inline-block;
+        line-height: 80px;
+        margin: 0 5px;
+    }
+
+    nav ul li a {
+        color: white;
+        font-size: 17px;
+        padding: 7px 13px;
+        border-radius: 3px;
+        text-transform: uppercase;
+    }
+
+    a.active,
+    a:hover {
+        background: #1b9bff;
+        transition: .5s;
+    }
+
+    .add-button {
+        background-color: #0082e6;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-bottom: 20px;
+    }
+
+    .add-button:hover {
+        background-color: #45a049;
+    }
+
+    .container {
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        text-align: left;
+        width: 80%;
+        max-width: 1200px;
+        margin: 20px auto;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        border: 1px solid #ddd;
+        background-color: #fff;
+    }
+
+    th,
+    td {
+        padding: 12px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    tr:hover {
+        background-color: #ddd;
+    }
+
+    .button-container button {
+        background-color: #ed8114;
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 4px;
+    }
+
+    .button-container button:hover {
+        background-color: #502f00;
+    }
+
+    .t {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+</style>
+
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Categories</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
+
 <body>
-<table>
+<nav>
+    <label class="logo">Admin Page</label>
+    <ul>
+        <li><a class="active" href="#">Products Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Services</a></li>
+    </ul>
+</nav>
 
-    <!--    static -->
-    <thead>
-    <tr>
-        <th> Id</th>
-        <th> Name</th>
-        <th> price</th>
-        <th> descripe</th>
-        <th> image</th>
-        <th> Categ</th>
+<div class="container">
+    <h2 class="t">All Products</h2>
+    <button class="add-button" onclick="redirectToAnotherPage4()">Add New Product</button>
+    <script>
+            function redirectToAnotherPage4() {
+                // Change the URL to the desired page
+                window.location.href = '/addProduct';
+            }
+        </script>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Category</th>
+            <th>Image</th>
+            <th>Description</th>
+            <th>Delete</th>
+            <th>Update</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="productsList : ${productsList}">
+            <td th:text="${productsList.id}"></td>
+            <td th:text="${productsList.name}"></td>
+            <td th:text="${productsList.price}"></td>
+            <td th:text="instance"></td>
+            <td th:text="${productsList.imageData}"></td>
+            <td th:text="${productsList.productDescription}"></td>
 
 
+            <td class="button-container">
+                <button type="submit" onclick="redirectToAnotherPage4(${category.id})">Delete</button>
+            </td>
+            <script>
+                        function redirectToAnotherPage4(ide) {
+                            // Change the URL to the desired page
+                            window.location.href = `/deleteCategory?id='${ide};
+            }
+                    </script>
+            </td>
 
-    </tr>
-    </thead>
+            <td class="button-container">
+                <button type="submit">Update</button>
+            </td>
 
-    <!--    dynamic-->
-    <tbody>
-    <tr th:each="i : ${prods}">
-        <td th:text="${i.id}"></td>
-        <td th:text="${i.name}"></td>
-        <td th:text="${i.price}"></td>
-        <td th:text=${i.productDescription}></td>
-        <td th:text="${i.imageData}"></td>
-        <td th:text="${i.categories}"></td>
-<!--        <td><a th:href="@{'/delete?id=' + ${i.id}}"> delete </a></td>-->
-<!--        <td><a th:href="@{'/edit?id=' + ${i.id}}"> edit </a></td>-->
 
-    </tr>
-    </tbody>
-</table>
+        </tr>
+        </tbody>
+    </table>
+</div>
 </body>
+
 </html>
