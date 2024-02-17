@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -210,13 +211,14 @@
         <label for="name">Name</label>
         <input type="text" id="name" name="name" required>
 
-        <label for="categories">Categories</label>
-        <select id="categories" name="categories" required>
-            <option value="electronics">Electronics</option>
-            <option value="clothing">Clothing</option>
-            <option value="books">Books</option>
-
+        <label for="category">Category</label>
+        <select id="category" name="category" required>
+            <option th:each="category : ${categories}"
+                    th:value="${category.id}"
+                    th:text="${category.name}">
+            </option>
         </select>
+
 
         <br><br>
 

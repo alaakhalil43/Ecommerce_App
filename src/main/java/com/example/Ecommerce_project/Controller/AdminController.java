@@ -81,12 +81,15 @@ public String deleteCategory(@RequestParam("id") int id , ModelMap modelMap){
 @GetMapping("/mangeProducts")
 public String mangeProducts(ModelMap modelMap,ModelMap modelMap2){
         List<ProductDto>productsList=productService.getAllProducts();
+
         modelMap.addAttribute("productsList",productsList);
         return "productspage";
 }
 
     @GetMapping ("/addProduct")
-    public String addProduct(){
+    public String addProduct(ModelMap modelMap){
+        List<Categories>cate=categoryService.getAllCategories();
+        modelMap.addAttribute("categories",cate);
         return "AddProducts";
     }
 
