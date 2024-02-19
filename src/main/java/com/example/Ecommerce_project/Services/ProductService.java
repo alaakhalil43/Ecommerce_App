@@ -66,6 +66,10 @@ public class ProductService {
         return productDto;
    }
 
+   public void delete(int id){
+        productRepo.deleteById(id);
+   }
+
 
 
 

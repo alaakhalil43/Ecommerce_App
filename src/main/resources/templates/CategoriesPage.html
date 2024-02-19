@@ -167,18 +167,18 @@
             <td th:text="${category.id}"></td>
             <td th:text="${category.name}"></td>
             <td class="button-container">
-                <button type="submit" onclick="redirectToAnotherPage4(${category.id})">Delete</button>
-            </td>
-            <script>
-                        function redirectToAnotherPage4(ide) {
-                            // Change the URL to the desired page
-                            window.location.href = `/deleteCategory?id='${ide};
-            }
-                    </script>
+                <form action="/deleteCategory" >
+                    <input type="hidden" name="id" th:value="${category.id}" /> <!-- Add a hidden input field to send the product ID -->
+                    <button type="submit">Delete</button>
+                </form>
             </td>
 
             <td class="button-container">
-                <button type="submit">Update</button>
+                <form action="updateCategorypage">
+                    <input type="hidden" name="id" th:value="${category.id}" /> <!-- Add a hidden input field to send the product ID -->
+                    <button type="submit">Update</button>
+                </form>
+
             </td>
         </tr>
         </tbody>

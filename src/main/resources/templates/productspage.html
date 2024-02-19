@@ -125,6 +125,11 @@
         text-align: center;
         margin-bottom: 30px;
     }
+
+<!--     img {-->
+<!--      width: 120px; /* Set width to 200 pixels */-->
+<!--      height: 100px; /* Set height to 200 pixels */-->
+<!--    }-->
 </style>
 
 <head>
@@ -167,32 +172,32 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="productsList : ${productsList}">
-            <td th:text="${productsList.id}"></td>
-            <td th:text="${productsList.name}"></td>
-            <td th:text="${productsList.price}"></td>
-            <td th:text="${productsList.category.name}"></td>
-            <td th:text="${productsList.imageData}"></td>
-            <td th:text="${productsList.productDescription}"></td>
+        <tr th:each="product : ${productsList}">
+            <td th:text="${product.id}"></td>
+            <td th:text="${product.name}"></td>
+            <td th:text="${product.price}"></td>
+            <td th:text="${product.category.name}"></td>
+            <td>
+                <img th:if="${product != null}" th:src="@{'data:image/jpeg;base64,' + ${'productImage'}}" alt="Product Image">
 
+            </td>
+            <td th:text="${product.productDescription}"></td>
 
             <td class="button-container">
-                <button type="submit" onclick="redirectToAnotherPage4(${category.id})">Delete</button>
-            </td>
-            <script>
-                        function redirectToAnotherPage4(ide) {
-                            // Change the URL to the desired page
-                            window.location.href = `/deleteCategory?id='${ide};
-            }
-                    </script>
+                <form action="/deleteProduct" >
+                    <input type="hidden" name="id" th:value="${product.id}" /> <!-- Add a hidden input field to send the product ID -->
+                    <button type="submit">Delete</button>
+                </form>
             </td>
 
             <td class="button-container">
+                <form action="/updateProductPage" >
+                    <input type="hidden" name="id" th:value="${product.id}" />
                 <button type="submit">Update</button>
+                    </form>
             </td>
-
-
         </tr>
+
         </tbody>
     </table>
 </div>

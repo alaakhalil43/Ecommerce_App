@@ -72,23 +72,17 @@ public String saveCategory(@ModelAttribute("categories")Categories categories,Mo
 }
 
 
-@GetMapping("/deleteCategory")
-public String deleteCategory(@RequestParam("id") int id , ModelMap modelMap){
-        Categories categories=categoryService.getById(id);
-         categoryService.deleteCategory(categories);
-         List<CategoryDto>cate=categoryService.getAllCategories();
-         modelMap.addAttribute("categories",cate);
-         return "CategoriesPage";
-}
+//@GetMapping("/deleteCategory")
+//public String deleteCategory(@RequestParam("id") int id , ModelMap modelMap){
+//        Categories categories=categoryService.getById(id);
+//         categoryService.deleteCategory(categories);
+//         List<CategoryDto>cate=categoryService.getAllCategories();
+//         modelMap.addAttribute("categories",cate);
+//         return "CategoriesPage";
+//}
 
 
-@GetMapping("/mangeProducts")
-public String mangeProducts(ModelMap modelMap,ModelMap modelMap2){
-        List<ProductDto>productsList=productService.getAllProducts();
 
-        modelMap.addAttribute("productsList",productsList);
-        return "productspage";
-}
 
     @GetMapping ("/addProduct")
     public String addProduct(ModelMap modelMap){
@@ -107,15 +101,82 @@ public String mangeProducts(ModelMap modelMap,ModelMap modelMap2){
         return "productspage";
     }
 
-
-    //http://localhost:8092/showPhoto
-    @GetMapping(value = "/showPhoto")
-    public String showPhoto(ModelMap modelMap) throws IOException {
-        byte[] image = productService.downloadProductPhoto(6);
-        String base64Image = Base64.getEncoder().encodeToString(image);
-        modelMap.addAttribute("image", base64Image);
-        return "Photos";
+    @GetMapping("/mangeProducts")
+    public String mangeProducts(ModelMap modelMap,ModelMap modelMap2) throws IOException {
+        List<ProductDto> productsList = productService.getAllProducts();
+        modelMap.addAttribute("productsList", productsList);
+//
+//        byte[] image = productService.downloadProductPhoto(6);
+//        String base64Image = Base64.getEncoder().encodeToString(image);
+//        System.out.println("Base64 Image: " + base64Image); // Log the Base64-encoded image data
+//        modelMap.addAttribute("productImage", base64Image); // Adding image data with a unique key based on product ID
+        return "productspage";
     }
+
+
+//    //http://localhost:8092/showPhoto
+//    @GetMapping(value = "/showPhoto")
+//    public String showPhoto(ModelMap modelMap) throws IOException {
+//
+//
+//        return "Photos";
+//    }
+//@GetMapping(value = "/showPhoto")
+//public String showPhoto(ModelMap modelMap) throws IOException {
+//    byte[] image = productService.downloadProductPhoto(6);
+//    String base64Image = Base64.getEncoder().encodeToString(image);
+//    modelMap.addAttribute("image" , base64Image);
+//    return "Photos";
+//}
+
+
+
+
+    @GetMapping("/deleteProduct")
+    public String deleteProduct(@RequestParam("id") int id , ModelMap modelMap){
+        productService.delete(id);
+        List<ProductDto>productsList=productService.getAllProducts();
+        modelMap.addAttribute("productsList",productsList);
+        return "productspage";
+    }
+
+
+
+
+    @GetMapping("/deleteCategory")
+    public String deleteCategory (@RequestParam("id") int id , ModelMap modelMap){
+        categoryService.deleteCategory(id);
+        List<CategoryDto>cate=categoryService.getAllCategories();
+        modelMap.addAttribute("categories",cate);
+        return "CategoriesPage";
+
+    }
+
+    @GetMapping("/updateCategorypage")
+    public String updateCategory (@RequestParam("id") int id , ModelMap modelMap){
+        Categories categories=categoryService.getById(id);
+        modelMap.addAttribute("categories",categories);
+        return "UpdateCategorypage";
+    }
+
+    @GetMapping("/updateCategory")
+    public String update(@ModelAttribute("categories") Categories categories,ModelMap modelMap){
+       categoryService.saveCategories(categories);
+        List<CategoryDto>cate=categoryService.getAllCategories();
+        modelMap.addAttribute("categories",cate);
+        return "CategoriesPage";
+    }
+
+
+    @GetMapping("/updateProductPage")
+    public String updateProductPage (@RequestParam("id") int id , ModelMap modelMap){
+    ProductDto product=productService.getOne(id);
+    modelMap.addAttribute("product",product);
+        return "updateProductPage";
+    }
+
+
+
 
 
 }
