@@ -126,10 +126,10 @@
         margin-bottom: 30px;
     }
 
-<!--     img {-->
-<!--      width: 120px; /* Set width to 200 pixels */-->
-<!--      height: 100px; /* Set height to 200 pixels */-->
-<!--    }-->
+     img {
+      width: 120px; /* Set width to 200 pixels */
+      height: 100px; /* Set height to 200 pixels */
+    }
 </style>
 
 <head>
@@ -178,7 +178,7 @@
             <td th:text="${product.price}"></td>
             <td th:text="${product.category.name}"></td>
             <td>
-                <img th:if="${product != null}" th:src="@{'data:image/jpeg;base64,' + ${'productImage'}}" alt="Product Image">
+                <img th:src="@{'/product/image/' + ${product.id}}" alt="Product Image"/>
 
             </td>
             <td th:text="${product.productDescription}"></td>
