@@ -11,10 +11,7 @@ import com.example.Ecommerce_project.dto.ProductDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.Base64;
@@ -160,7 +157,7 @@ public String saveCategory(@ModelAttribute("categories")Categories categories,Mo
     }
 
     @GetMapping("/updateCategory")
-    public String update(@ModelAttribute("categories") Categories categories,ModelMap modelMap){
+    public String updateCategory(@ModelAttribute("categories") Categories categories,ModelMap modelMap){
        categoryService.saveCategories(categories);
         List<CategoryDto>cate=categoryService.getAllCategories();
         modelMap.addAttribute("categories",cate);
@@ -171,11 +168,21 @@ public String saveCategory(@ModelAttribute("categories")Categories categories,Mo
     @GetMapping("/updateProductPage")
     public String updateProductPage (@RequestParam("id") int id , ModelMap modelMap){
     ProductDto product=productService.getOne(id);
+    List<CategoryDto>cate=categoryService.getAllCategories();
     modelMap.addAttribute("product",product);
-        return "updateProductPage";
+    modelMap.addAttribute("categories",cate);
+    return "updateProductPage";
     }
 
 
+  @GetMapping("/updateProducts")
+    public String updateProducts(@ModelAttribute("products") Products products , ModelMap modelMap){
+        productService.saveProduct(products);
+      List<ProductDto>productsList=productService.getAllProducts();
+      modelMap.addAttribute("productsList",productsList);
+      return "productspage";
+
+  }
 
 
 
