@@ -1,7 +1,9 @@
 package com.example.Ecommerce_project.Services;
 
+import com.example.Ecommerce_project.Models.Categories;
 import com.example.Ecommerce_project.Models.Products;
 import com.example.Ecommerce_project.dto.ProductDto;
+import com.example.Ecommerce_project.repos.CategoryRepo;
 import com.example.Ecommerce_project.repos.ProductRepo;
 import jakarta.annotation.Resource;
 import org.modelmapper.ModelMapper;
@@ -30,6 +32,8 @@ public class ProductService {
     @Autowired
     public ProductRepo productRepo;
 
+
+
     @Autowired
     public ModelMapper modelMapper;
 
@@ -41,6 +45,8 @@ public class ProductService {
         this.productRepo = productRepo;
     }
 
+
+
     public void saveProduct(Products products){productRepo.save(products);}
 
     public List<ProductDto> getAllProducts(){
@@ -51,9 +57,14 @@ public class ProductService {
             ProductDto prod = convertToDto(i);
             productDTOs.add(prod);
         }
-
         return productDTOs;
     }
+
+    public List<Products> getAll(){
+        return productRepo.findAll();
+    }
+
+
 
     private ProductDto convertToDto(Products products) {
         return modelMapper.map(products, ProductDto.class);
